@@ -1,0 +1,13 @@
+.bg-ende{
+    background-image: linear-gradient(to right,#4834d4, #7ed6df);
+}
+.text-label{
+    color: #c7ecee;
+}
+.nav-link{
+    color: #130f40!important;
+}
+.nav-link.active {
+    background-color: #130f40!important;
+    color: #ffffff!important;
+}
