@@ -6,83 +6,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ende</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css">
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/solid.min.css">
 </head>
-<body>
+<body class="bg-ende">
     <div class="container mt-4">
-        <div class="card card-body">
-            <ul class="nav nav-tabs" id="tabMenu" role="tablist">
-                <li class="nav-item">
-                    <a href="#enk" data-toggle="tab" role="tab" id="EncryptForm" class="nav-link active" aria-controls="EncryptForm" aria-selected="true">Encryption</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#denk" data-toggle="tab" role="tab" id="DecryptForm" class="nav-link" aria-controls="DecryptForm" aria-selected="true">De-Encryption</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#fhash" data-toggle="tab" role="tab" id="FileHash" class="nav-link" aria-controls="FileHash" aria-selected="true">File Hash</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="tabMenu">
-                <div class="tab-pane fade show active" id="enk" role="tabpanel" aria-labelledby="EncryptForm">
-                    <form>
-                        <div class="form-group">
-                            <label for="plain" class="text-muted">Plain Text</label>
-                            <input type="text" class="form-control" id="plain">
-                        </div>
-                        <div class="form-group">
-                            <label for="key" class="text-muted">Key</label>
-                            <input type="text" class="form-control" id="key">
-                        </div>
-                        <div class="form-group">
-                            <label for="chiper" class="text-muted">Chiper Text</label>
-                            <input type="text" class="form-control" id="chiper" disabled>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary" onclick="encryption()">
-                                <span>Enkripsi</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="denk" role="tabpanel" aria-labelledby="DecryptForm">
-                    <form>
-                        <div class="form-group">
-                            <label for="chiperd" class="text-muted">Chiper Text</label>
-                            <input type="text" class="form-control" id="chiperd">
-                        </div>
-                        <div class="form-group">
-                            <label for="keyd" class="text-muted">Key</label>
-                            <input type="text" class="form-control" id="keyd">
-                        </div>
-                        <div class="form-group">
-                            <label for="plaind" class="text-muted">Plain Text</label>
-                            <input type="text" class="form-control" id="plaind" disabled>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary" onclick="deencryption()">
-                                <span>Enkripsi</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="fhash" role="tabpanel" aria-labelledby="FileHash">
-                    <form>
-                        <div class="form-group">
-                            <label for="file" class="text-muted">File</label>
-                            <input type="file" class="form-control" id="file" onchange="onFileSelect()" multiple>
-                        </div>
-                        <div class="form-group">
-                            <label for="sha256" class="text-muted">SHA256</label>
-                            <input type="text" class="form-control" id="sha256" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="md5" class="text-muted">MD5</label>
-                            <input type="text" class="form-control" id="md5" disabled>
-                        </div>
-                    </form>
+        <ul class="nav nav-tabs" id="tabMenu" role="tablist">
+            <li class="nav-item">
+                <a href="#enk" data-toggle="tab" role="tab" id="EncryptForm" class="nav-link active" aria-controls="EncryptForm" aria-selected="true">
+                    <i class="fas fa-eye-slash"></i>
+                    <span>Encryption</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#denk" data-toggle="tab" role="tab" id="DecryptForm" class="nav-link" aria-controls="DecryptForm" aria-selected="true">
+                    <i class="fas fa-eye"></i>
+                    <span>De-Encryption</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#fhash" data-toggle="tab" role="tab" id="FileHash" class="nav-link" aria-controls="FileHash" aria-selected="true">
+                    <i class="fas fa-file-contract"></i>
+                    <span>File Hash</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" id="tabMenu">
+            <div class="tab-pane fade show active" id="enk" role="tabpanel" aria-labelledby="EncryptForm">
+                <form>
+                    <div class="form-group">
+                        <label for="plain" class="text-label">Plain Text</label>
+                        <input type="text" class="form-control" id="plain">
+                    </div>
+                    <div class="form-group">
+                        <label for="key" class="text-label">Key</label>
+                        <input type="text" class="form-control" id="key">
+                    </div>
+                    <div class="form-group">
+                        <label for="chiper" class="text-label">Chiper Text</label>
+                        <input type="text" class="form-control" id="chiper" disabled>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" onclick="encryption()">
+                            <i class="fas fa-lock"></i>
+                            <span>Enkripsi</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="denk" role="tabpanel" aria-labelledby="DecryptForm">
+                <form>
+                    <div class="form-group">
+                        <label for="chiperd" class="text-label">Chiper Text</label>
+                        <input type="text" class="form-control" id="chiperd">
+                    </div>
+                    <div class="form-group">
+                        <label for="keyd" class="text-label">Key</label>
+                        <input type="text" class="form-control" id="keyd">
+                    </div>
+                    <div class="form-group">
+                        <label for="plaind" class="text-label">Plain Text</label>
+                        <input type="text" class="form-control" id="plaind" disabled>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" onclick="deencryption()">
+                            <i class="fas fa-lock-open"></i>
+                            <span>De-Enkripsi</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="fhash" role="tabpanel" aria-labelledby="FileHash">
+                <form>
+                    <div class="form-group">
+                        <label for="file" class="text-label">File</label>
+                        <input type="file" class="form-control" id="file" onchange="onFileSelect()" multiple>
+                    </div>
+                    <div class="form-group">
+                        <label for="sha256" class="text-label">SHA256</label>
+                        <input type="text" class="form-control" id="sha256" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="md5" class="text-label">MD5</label>
+                        <input type="text" class="form-control" id="md5" disabled>
+                    </div>
+                </form>
+             </div>
+        </div>
+        <div class="text-center mt-3">
+            <button type="button" data-toggle="modal" data-target="#confirmClose" class="btn btn-danger">
+                <i class="fas fa-window-close"></i>
+                <span>Tutup Aplikasi</span>
+            </button>
+        </div>
+    </div>
+    <!-- Modal Close -->
+    <div class="modal fade" role="dialog" id="confirmClose">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    Aplikasi akan ditutup?
+                    <br>
+                    <a href="javascript:window.close()" class="btn btn-danger">
+                        <i class="fas fa-check"></i>
+                        <span>Tutup</span>
+                    </a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        <span>Batal</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Modal Close -->
+
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/crypto-js/crypto-js.js"></script>
