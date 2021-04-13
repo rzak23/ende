@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ende</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card card-body">
+            <ul class="nav nav-tabs" id="tabMenu" role="tablist">
+                <li class="nav-item">
+                    <a href="#enk" data-toggle="tab" role="tab" id="EncryptForm" class="nav-link active" aria-controls="EncryptForm" aria-selected="true">Encryption</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#denk" data-toggle="tab" role="tab" id="DecryptForm" class="nav-link" aria-controls="DecryptForm" aria-selected="true">De-Encryption</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#fhash" data-toggle="tab" role="tab" id="FileHash" class="nav-link" aria-controls="FileHash" aria-selected="true">File Hash</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="tabMenu">
+                <div class="tab-pane fade show active" id="enk" role="tabpanel" aria-labelledby="EncryptForm">
+                    <form>
+                        <div class="form-group">
+                            <label for="plain" class="text-muted">Plain Text</label>
+                            <input type="text" class="form-control" id="plain">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="text-muted">Key</label>
+                            <input type="text" class="form-control" id="key">
+                        </div>
+                        <div class="form-group">
+                            <label for="chiper" class="text-muted">Chiper Text</label>
+                            <input type="text" class="form-control" id="chiper" disabled>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" onclick="encryption()">
+                                <span>Enkripsi</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="denk" role="tabpanel" aria-labelledby="DecryptForm">
+                    <form>
+                        <div class="form-group">
+                            <label for="chiperd" class="text-muted">Chiper Text</label>
+                            <input type="text" class="form-control" id="chiperd">
+                        </div>
+                        <div class="form-group">
+                            <label for="keyd" class="text-muted">Key</label>
+                            <input type="text" class="form-control" id="keyd">
+                        </div>
+                        <div class="form-group">
+                            <label for="plaind" class="text-muted">Plain Text</label>
+                            <input type="text" class="form-control" id="plaind" disabled>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" onclick="deencryption()">
+                                <span>Enkripsi</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="fhash" role="tabpanel" aria-labelledby="FileHash">
+                    <form>
+                        <div class="form-group">
+                            <label for="file" class="text-muted">File</label>
+                            <input type="file" class="form-control" id="file">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-warning" onclick="checkHash()">
+                                <span>Check</span>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="hash" disabled>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/crypto-js/crypto-js.js"></script>
+    <script src="node_modules/crypto-js/aes.js"></script>
+    <script src="node_modules/crypto-js/sha256.js"></script>
+    <script>
+        function encryption(){
+            var p = document.getElementById('plain').value;
+            var k = document.getElementById('key').value;
+
+            var cry = CryptoJS.AES.encrypt(p,k);
+            document.getElementById('chiper').value = cry;
+        }
+
+        function deencryption(){
+            var c = document.getElementById('chiperd').value;
+            var k = document.getElementById('keyd').value;
+
+            var dry = CryptoJS.AES.decrypt(c,k);
+            document.getElementById('plaind').value = dry.toString(CryptoJS.enc.Utf8);
+        }
+
+        function checkHash(){
+            var f = document.getElementById('file').value;
+            // console.log(f);
+
+            var hash = CryptoJS.SHA256(f);
+            document.getElementById('hash').value = hash;
+        }
+    </script>
+</body>
+</html>
