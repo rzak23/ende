@@ -68,15 +68,15 @@
                     <form>
                         <div class="form-group">
                             <label for="file" class="text-muted">File</label>
-                            <input type="file" class="form-control" id="file">
+                            <input type="file" class="form-control" id="file" onchange="onFileSelect()" multiple>
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn btn-warning" onclick="checkHash()">
-                                <span>Check</span>
-                            </button>
+                            <label for="sha256" class="text-muted">SHA256</label>
+                            <input type="text" class="form-control" id="sha256" disabled>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="hash" disabled>
+                            <label for="md5" class="text-muted">MD5</label>
+                            <input type="text" class="form-control" id="md5" disabled>
                         </div>
                     </form>
                 </div>
@@ -88,6 +88,7 @@
     <script src="node_modules/crypto-js/crypto-js.js"></script>
     <script src="node_modules/crypto-js/aes.js"></script>
     <script src="node_modules/crypto-js/sha256.js"></script>
+    <script src="node_modules/crypto-js/md5.js"></script>
     <script>
         function encryption(){
             var p = document.getElementById('plain').value;
@@ -105,12 +106,18 @@
             document.getElementById('plaind').value = dry.toString(CryptoJS.enc.Utf8);
         }
 
-        function checkHash(){
-            var f = document.getElementById('file').value;
-            // console.log(f);
+        function onFileSelect(){
+            var reader = new FileReader();
 
-            var hash = CryptoJS.SHA256(f);
-            document.getElementById('hash').value = hash;
+            reader.addEventListener('load',function () {
+                var sha256 = CryptoJS.SHA256(CryptoJS.enc.Latin1.parse(this.result));
+                var md5 = CryptoJS.MD5(CryptoJS.enc.Latin1.parse(this.result));
+                // var md5 = hash.toString(CryptoJS.enc.Hex)
+                // console.log(output);
+                document.getElementById('md5').value = md5;
+                document.getElementById('sha256').value = sha256;
+            });
+            reader.readAsBinaryString(document.getElementById('file').files[0]);
         }
     </script>
 </body>
