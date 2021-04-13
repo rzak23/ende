@@ -1,0 +1,29 @@
+{
+  "name": "ende",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rzak23/ende.git"
+  },
+  "keywords": [],
+  "author": "rzak23",
+  "email": "reza.akbar2396@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rzak23/ende/issues"
+  },
+  "homepage": "https://github.com/rzak23/ende#readme",
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "crypto-js": "^4.0.0",
+    "jquery": "^3.6.0"
+  },
+  "devDependencies": {
+    "electron": "^12.0.2"
+  },
+  "description": ""
+}
