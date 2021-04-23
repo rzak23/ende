@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ende</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/dropify/dist/css/dropify.min.css">
     <link rel="stylesheet" href="style.css">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css">
     <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/solid.min.css">
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
 </head>
 <body class="bg-ende">
     <div class="container mt-4">
@@ -37,6 +39,14 @@
             <div class="tab-pane fade show active" id="enk" role="tabpanel" aria-labelledby="EncryptForm">
                 <form>
                     <div class="form-group">
+                        <label for="tipe" class="text-label">Tipe Chiper</label>
+                        <select name="chiper" id="tipe" class="form-control">
+                            <option value="aes">AES</option>
+                            <option value="des">DES</option>
+                            <option value="triple-des">Triple DES</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="plain" class="text-label">Plain Text</label>
                         <input type="text" class="form-control" id="plain">
                     </div>
@@ -58,6 +68,14 @@
             </div>
             <div class="tab-pane fade" id="denk" role="tabpanel" aria-labelledby="DecryptForm">
                 <form>
+                    <div class="form-group">
+                        <label for="tiped" class="text-label">Tipe Chiper</label>
+                        <select name="chiper" id="tiped" class="form-control">
+                            <option value="aes">AES</option>
+                            <option value="des">DES</option>
+                            <option value="triple-des">Triple DES</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="chiperd" class="text-label">Chiper Text</label>
                         <input type="text" class="form-control" id="chiperd">
@@ -82,17 +100,21 @@
                 <form>
                     <div class="form-group">
                         <label for="file" class="text-label">File</label>
-                        <input type="file" class="form-control" id="file" onchange="onFileSelect()" multiple>
+                        <input type="file" id="file" class="file" onchange="onFileSelect()" data-show-loader="true" multiple>
                     </div>
-                    <div class="form-group">
-                        <label for="sha256" class="text-label">SHA256</label>
-                        <input type="text" class="form-control" id="sha256" disabled>
-                    </div>
+                </form>
                     <div class="form-group">
                         <label for="md5" class="text-label">MD5</label>
                         <input type="text" class="form-control" id="md5" disabled>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <label for="sha1" class="text-label">SHA1</label>
+                        <input type="text" class="form-control" id="sha1" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="sha256" class="text-label">SHA2(256)</label>
+                        <input type="text" class="form-control" id="sha256" disabled>
+                    </div>
              </div>
         </div>
         <div class="text-center mt-3">
@@ -125,24 +147,45 @@
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/dropify/dist/js/dropify.min.js"></script>
+    <!-- CryptoJS -->
     <script src="node_modules/crypto-js/crypto-js.js"></script>
     <script src="node_modules/crypto-js/aes.js"></script>
     <script src="node_modules/crypto-js/sha256.js"></script>
+    <script src="node_modules/crypto-js/sha1.js"></script>
     <script src="node_modules/crypto-js/md5.js"></script>
+    <!-- CryptoJS -->
     <script>
+        $(document).ready(function(){
+            $('#file').dropify();
+        })
         function encryption(){
+            var tipe = document.getElementById('tipe').value;
             var p = document.getElementById('plain').value;
             var k = document.getElementById('key').value;
 
-            var cry = CryptoJS.AES.encrypt(p,k);
+            if(tipe == "aes"){
+                var cry = CryptoJS.AES.encrypt(p,k);
+            }else if(tipe == "des"){
+                var cry = CryptoJS.DES.encrypt(p,k);
+            }else if(tipe == "triple-des"){
+                var cry = CryptoJS.TripleDES.encrypt(p,k);
+            }
             document.getElementById('chiper').value = cry;
         }
 
         function deencryption(){
+            var tipe = document.getElementById('tiped').value;
             var c = document.getElementById('chiperd').value;
             var k = document.getElementById('keyd').value;
 
-            var dry = CryptoJS.AES.decrypt(c,k);
+            if(tipe == "aes"){
+                var dry = CryptoJS.AES.decrypt(c,k);
+            }else if(tipe == "des"){
+                var dry = CryptoJS.DES.decrypt(c,k);
+            }else if(tipe == "triple-des"){
+                var dry = CryptoJS.TripleDES.decrypt(c,k);
+            }
             document.getElementById('plaind').value = dry.toString(CryptoJS.enc.Utf8);
         }
 
@@ -152,10 +195,12 @@
             reader.addEventListener('load',function () {
                 var sha256 = CryptoJS.SHA256(CryptoJS.enc.Latin1.parse(this.result));
                 var md5 = CryptoJS.MD5(CryptoJS.enc.Latin1.parse(this.result));
+                var sha1 = CryptoJS.SHA1(CryptoJS.enc.Latin1.parse(this.result));
                 // var md5 = hash.toString(CryptoJS.enc.Hex)
                 // console.log(output);
                 document.getElementById('md5').value = md5;
                 document.getElementById('sha256').value = sha256;
+                document.getElementById('sha1').value = sha1;
             });
             reader.readAsBinaryString(document.getElementById('file').files[0]);
         }
