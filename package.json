@@ -1,6 +1,6 @@
 {
   "name": "ende",
-  "version": "1.2.2",
+  "version": "1.4.3",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -22,13 +22,14 @@
     "@fortawesome/fontawesome-free": "^5.15.3",
     "bootstrap": "^4.6.0",
     "bootstrap-fileinput": "^5.1.5",
+    "clipboard": "^2.0.8",
     "crypto-js": "^4.0.0",
     "dropify": "^0.2.2",
     "jquery": "^3.6.0"
   },
   "devDependencies": {
     "electron-builder": "^22.10.5",
-    "electron": "^12.0.4"
+    "electron": "^12.0.6"
   },
   "description": "Aplikasi Enkripsi dan De-enkripsi data, beserta hash file generator",
   "build": {
