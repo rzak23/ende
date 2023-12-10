@@ -1,3 +1,5 @@
+### Repo Ini sudah tidak diperbarui lagi, sebagai pengganti telah dipindahkan ke [FormDev](https://github.com/rzak23/FormDev)
+
 # Ende
 
 Aplikasi enkripsi dan de-enkripsi data dengan algoritma AES dan pembaca hash file yang saat ini support MD5 dan SHA-2
